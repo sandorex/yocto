@@ -1,0 +1,26 @@
+[package]
+name = "yocto"
+version = "0.1.0"
+edition = "2021"
+keywords = ["code-editor", "editor"]
+license = "MIT"
+repository = "https://github.com/sandorex/yocto"
+readme = "README.md"
+default-run = "yocto"
+
+[[bin]]
+name = "yocto"
+path = "src/main.rs"
+
+[[bin]]
+name = "yoctocat"
+path = "src/main_cat.rs"
+
+[dependencies]
+clap = { version = "4.5.20", features = ["derive", "env"] }
+crossterm = "0.28.1"
+regex = "1.11.1"
+
+[build-dependencies]
+anyhow = "1.0.93"
+vergen-git2 = { version = "1.0.1", features = [] }
