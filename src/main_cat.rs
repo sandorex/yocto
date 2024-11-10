@@ -11,10 +11,9 @@ use token::{Token, TokenType};
 
 pub use vars::*;
 
-
 /// Small program like `cat` for printing files with same experimental syntax highlighting as yocto
 ///
-/// This binary is more for testing than actual usage
+/// This binary is meant for testing not actual usage
 #[derive(Parser, Debug)]
 #[command(name = env!("CARGO_BIN_NAME"), author, version = crate::FULL_VERSION, about)]
 pub struct Cli {
@@ -40,8 +39,7 @@ fn main() {
 
     let mut stdout = std::io::stdout();
 
-    let tokens: Vec<Token> = regex_builder::RE.captures_iter(&input).map(|c| Token::new(&c)).collect();
-    println!("{:#?}", tokens);
+    let tokens = regex_builder::DEFAULT_SYNTAX.parse(&input);
 
     for token in tokens {
         // TODO add underline etc
@@ -50,7 +48,6 @@ fn main() {
             TokenType::Identifier => Colors::new(Color::DarkRed, Color::Reset),
             TokenType::String | TokenType::Number => Colors::new(Color::DarkMagenta, Color::Reset),
             TokenType::Symbol if token.raw == ";" => Colors::new(Color::DarkBlue, Color::Reset),
-            // TokenType::Whitespace => Colors::new(Color::Reset, Color::Rgb { r: 255, g: 200, b: 200 }),
             _ => Colors::new(Color::Reset, Color::Reset),
         };
 
