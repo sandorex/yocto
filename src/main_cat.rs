@@ -1,7 +1,7 @@
 //! Contains whole `yoctocat` demo program
 mod vars;
 mod token;
-mod regex_builder;
+mod syntax;
 
 use crossterm::style::{Color, Colors, Print, SetColors};
 use crossterm::QueueableCommand;
@@ -39,7 +39,7 @@ fn main() {
 
     let mut stdout = std::io::stdout();
 
-    let tokens = regex_builder::DEFAULT_SYNTAX.parse(&input);
+    let tokens = syntax::DEFAULT_SYNTAX.parse(&input);
 
     for token in tokens {
         // TODO add underline etc

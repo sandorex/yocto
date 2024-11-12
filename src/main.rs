@@ -1,54 +1,57 @@
 mod cli;
 mod vars;
 mod token;
-mod regex_builder;
+mod syntax;
+mod gap_buffer;
 
 use clap::Parser;
-use crossterm::style::{Color, Colors, Print, SetColors};
-use std::io::{Write, stdout};
+use crossterm::style::{Color, Colors, Print, SetColors, Stylize};
+use std::io::{stdout, Write};
 use crossterm::{QueueableCommand};
 
 pub use vars::*;
 
+// pub const GAP_BUFFER_EXTRA_LEN: usize = 64;
+
+// pub struct Context {
+//     // pub stdout
+// }
+
+// fn setup() {
+//     // let mut stdout = stdout();
+//     execute!(
+//          std::io::stdout(),
+//          EnableBracketedPaste,
+//          EnableFocusChange,
+//          EnableMouseCapture
+//     )?;
+// }
+
+use gap_buffer::GapBuffer;
+
 fn main() {
+    let mut buf = GapBuffer::new("Hello World!".to_string());
+    println!("{:?}", buf);
+
+    buf.move_to(6);
+
+    println!("{:?}", buf);
+
+    buf.move_to(5);
+
+    println!("{:?}", buf);
+
+    buf.push_char('@');
+
+    println!("{:?}", buf);
+
+    // let mut buf = GapBuffer::new("Hello there!");
+    // println!("got: {:?}", buf.to_string());
+    // buf.insert('c');
+    // println!("got: {:?}", buf.to_string());
+    // // buf
     // // force compile regex
     // LazyLock::force(&RE);
-
-    let input2 = r#"// C Program to Check Prime Number using Simple Trial
-// Division Approach
-#include <stdio.h>
-
-int isPrime(int N) {
-
-    // Check divisibility from 2 to N-1
-    for (int i = 2; i < N; i++) {
-
-        // If N is divisible by i, it is not a prime number
-        if (N % i == 0) {
-            return 0;
-        }
-    }
-
-    // If no divisors were found, N is a prime number
-    return 1;
-}
-
-int main() {
-    int N = 10;
-    printf("Is %d prime?\n", N);
-
-    // Check if the number is prime
-    if (isPrime(N)) {
-        printf("Yes\n");
-    }
-    else {
-        printf("No\n");
-    }
-
-    return 0;
-}"#;
-
-    let cli_args = cli::Cli::parse();
 
     // let mut stdout = stdout();
     //
